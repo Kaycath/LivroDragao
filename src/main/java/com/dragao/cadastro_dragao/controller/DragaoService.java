@@ -20,7 +20,25 @@ public class DragaoService {
     public Dragao buscarDragaoPorNome(String nome){
 
         return repository.findByNome(nome).orElseThrow(
-                () -> new RuntimeException("Nome nãp encontrado!")
+                () -> new RuntimeException("Nome não encontrado!")
         );
+    }
+
+    public void deletarDragaoPorNome(String nome){
+        repository.deleteByNome(nome);
+    }
+
+    public void autalizarDragaoPorId(Integer id, Dragao dragao){
+        Dragao dragaoEntity = repository.findById(id).orElseThrow(() ->
+                    new RuntimeException("Dragao nao encontrado"));
+        Dragao dragaoAtualizado = Dragao.builder()
+                .nome(dragao.getNome() != null ? dragao.getNome() :
+                        dragaoEntity.getNome())
+                .especie(dragao.getEspecie() != null ? dragao.getEspecie() :
+                        dragaoEntity.getEspecie())
+                .id(dragaoEntity.getId())
+                .build();
+
+        repository.saveAndFlush(dragaoAtualizado);
     }
 }
