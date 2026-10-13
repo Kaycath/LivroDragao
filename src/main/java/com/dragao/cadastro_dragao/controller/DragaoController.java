@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/dragao")
@@ -18,6 +19,24 @@ public class DragaoController {
     @PostMapping
     public ResponseEntity<Void> salvarDragao(@RequestBody Dragao dragao){
         dragaoService.salvarDragao(dragao);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<Dragao> buscarDragaoPorNome(@RequestParam String nome){
+        return ResponseEntity.ok(dragaoService.buscarDragaoPorNome(nome));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deletarDragaoPorNome(@RequestParam String nome){
+        dragaoService.deletarDragaoPorNome(nome);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> atualizarDragaoPorId(@RequestParam Dragao dragao,
+                                                     @RequestBody Integer id) {
+        dragaoService.autalizarDragaoPorId(id, dragao);
         return ResponseEntity.ok().build();
     }
 }

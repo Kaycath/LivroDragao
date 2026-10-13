@@ -14,7 +14,7 @@ import lombok.*;
 public class Dragao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nome", unique = true)
